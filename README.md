@@ -1,33 +1,66 @@
-# Lightning MCP
+# ⚡ Lightning MCP
 
-Lightning MCP is an open-source server bridging the Bitcoin Lightning Network with the Model Context Protocol (MCP). It allows automated agents (or other software) to send and receive Bitcoin payments over Lightning by exposing a standardized interface. This repository aims to deliver a **minimum viable product (MVP)** that's easy to set up and extend.
+[![GitHub stars](https://img.shields.io/github/stars/LNAgents/lightning-mcp?style=flat-square)](https://github.com/LNAgents/lightning-mcp/stargazers)
+[![GitHub license](https://img.shields.io/github/license/LNAgents/lightning-mcp?style=flat-square)](https://github.com/LNAgents/lightning-mcp/blob/main/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/LNAgents/lightning-mcp?style=flat-square)](https://github.com/LNAgents/lightning-mcp/issues)
+[![GitHub forks](https://img.shields.io/github/forks/LNAgents/lightning-mcp?style=flat-square)](https://github.com/LNAgents/lightning-mcp/network)
 
----
+Lightning MCP is an open-source bridge between the Bitcoin Lightning Network and the Model Context Protocol (MCP). It enables AI agents and software systems to seamlessly send and receive Bitcoin payments through a standardized interface.
 
-## Technical High-Level Summary
+<!-- Logo image will be added later
+<p align="center">
+  <img src="https://raw.githubusercontent.com/LNAgents/lightning-mcp/main/docs/assets/lightning-mcp-logo.png" alt="Lightning MCP Logo" width="300">
+</p>
+-->
 
-1. **Lightning Integration**  
-   - Uses standard Lightning protocols (BOLT specs) for off-chain Bitcoin payments.  
-   - Supports creating and paying invoices, managing channels, and routing transactions.  
-   - Compatible with popular node implementations (LND, Core Lightning, etc.) or external custodial services.
+> **Note:** This project is currently in alpha stage and provides a minimum viable product (MVP) for developers to build upon.
 
-2. **MCP Interface**  
-   - Implements Model Context Protocol endpoints so automated systems can discover and invoke "Lightning payment" functions directly.  
-   - Designed to operate with either REST or RPC (JSON-RPC/gRPC) to suit varied deployment environments.
+## 🚀 Features
 
-3. **Security & Performance**  
-   - Adopts industry-standard encryption (TLS) and authentication (macaroons, tokens, or API keys).  
-   - Targets low latency for near-instant payment settlement.  
-   - Balances straightforward MVP design with readiness for production-scale throughput.
+- **Lightning Network Integration** - Create and pay invoices, manage channels, and route transactions
+- **MCP Interface** - Implement Model Context Protocol endpoints for AI agent integration
+- **Security** - Industry-standard encryption (TLS) and authentication mechanisms
+- **Multiple Backends** - Supports LND with planned Core Lightning and Eclair integration
+- **Simple Deployment** - Docker support and comprehensive configuration options
 
-4. **Deployment**  
-   - Can run self-hosted (e.g., on a VPS or bare-metal) or in the cloud (Docker/Kubernetes).  
-   - Optional external services for simplified channel management and liquidity (e.g., LNPay, LNBits, Voltage).  
-   - Provides basic configuration files to connect with a local Bitcoin node or a remote service.
+## 📋 Table of Contents
 
----
+- [Technical Overview](#-technical-overview)
+- [Implementation Details](#-implementation-details)
+- [Installation](#-installation)
+- [Usage Examples](#-usage-examples)
+- [Roadmap](#-roadmap)
+- [Contributing](#-contributing)
+- [License](#-license)
 
-## Implementation Details
+## 🔍 Technical Overview
+
+### Lightning Integration
+
+- Implements standard Lightning Network protocols (BOLT specs) for fast, off-chain Bitcoin payments
+- Support for creating and paying invoices, managing channels, and routing transactions
+- Compatible with popular node implementations and external services
+
+### MCP Interface
+
+- Exposes Lightning Network operations as MCP "tools" for agent discovery and usage
+- Flexible interface options (REST or RPC) to accommodate various deployment scenarios
+- Structured tool definitions with parameter validation
+
+### Security & Performance 
+
+- TLS encryption for all communications
+- Authentication via macaroons, tokens, or API keys
+- Optimized for low latency and near-instant settlement
+- Balanced design for both simplicity and production readiness
+
+### Deployment Options
+
+- Self-hosted deployment (VPS, bare-metal)
+- Containerized deployment with Docker/Kubernetes
+- Optional integration with external services for simplified channel management
+
+## 💻 Implementation Details
 
 ### Repository Structure
 
@@ -37,169 +70,187 @@ lightning-mcp/
 │   ├── server/                  # MCP server implementation
 │   │   └── mcp_server.py        # MCP server core
 │   ├── lightning/               # Lightning Network integration
-│   │   └── lnd_client.py        # LND API client
+│   │   ├── lnd_client.py        # LND API client
+│   │   └── clightning_client.py # c-lightning API client
 │   └── utils/                   # Utility functions
+├── examples/                    # Example usage scripts
 ├── tests/                       # Test suite
 ├── requirements.txt             # Python dependencies
 ├── setup.py                     # Package installation script
 └── README.md                    # This file
 ```
 
-### MCP Tools Implementation
+### Available MCP Tools
 
-The server exposes the following Lightning Network operations as MCP tools:
+The server exposes these Lightning Network operations:
 
-1. **Create Invoice** - Generate a Lightning invoice with specified amount
-2. **Pay Invoice** - Pay a Lightning invoice
-3. **Check Payment Status** - Verify the status of a payment
-4. **Get Channel Balance** - Retrieve the current channel balance
-5. **List Channels** - List all active Lightning channels
-6. **Open Channel** - Open a new Lightning channel with a node
-7. **Close Channel** - Close an existing Lightning channel
+| Tool | Description | Status |
+|------|-------------|--------|
+| **Create Invoice** | Generate a Lightning invoice with specified amount | ✅ |
+| **Pay Invoice** | Pay a Lightning invoice | ✅ |
+| **Check Payment Status** | Verify the status of a payment | ✅ |
+| **Get Wallet Balance** | Retrieve the current wallet balance | ✅ |
+| **Get Channel Balance** | Retrieve the current channel balance | ✅ |
+| **List Channels** | List all active Lightning channels | ✅ |
+| **Open Channel** | Open a new Lightning channel with a node | ✅ |
+| **Close Channel** | Close an existing Lightning channel | ✅ |
 
 ### Lightning Network Backend Support
 
-The initial implementation supports LND as the backend, with plans to extend to other implementations:
+| Implementation | Status |
+|----------------|--------|
+| **LND** | ✅ Implemented |
+| **Core Lightning** | 🚧 In Progress |
+| **Eclair** | 📅 Planned |
+| **External Services** | 📅 Planned |
 
-- **LND** (Initial implementation)
-- **Core Lightning** (Planned)
-- **Eclair** (Planned)
-- **External Services** (Optional)
-
----
-
-## MVP Requirements
-
-1. **Core Payment Flow**  
-   - Ability to create and pay Lightning invoices.  
-   - Basic channel operations (open, close, list channels).  
-   - Simple REST or RPC interface (decide at build-time).
-
-2. **Security**  
-   - HTTPS/TLS for all incoming requests.  
-   - Basic token-based auth or macaroons to control payment capabilities.  
-   - Safe handling of private keys (file-based or encrypted storage).
-
-3. **Integration**  
-   - Model Context Protocol compliance (provide a schema or simple endpoint describing the Lightning "tool").  
-   - Optional plugin for a chosen Lightning node back end (LND by default).  
-   - Minimal testing harness or example scripts to verify send/receive flow.
-
-4. **Deployment & Documentation**  
-   - Dockerfile and/or minimal instructions for local install.  
-   - Configuration examples for common setups (e.g., pointing to an LND node).  
-   - Clear README on how to run the server and test payments.
-
----
-
-## Setup and Installation
+## 🔧 Installation
 
 ### Prerequisites
 
 - Python 3.10+
 - Access to a Lightning Network node (LND initially)
-- [uv](https://github.com/astral-sh/uv) - Modern Python package installer and resolver
+- [uv](https://github.com/astral-sh/uv) - Modern Python package installer (recommended)
 - [Optional] Docker for containerized deployment
 
-### Installation
+### Quick Start
 
-1. **Install uv** (if not already installed):
-   ```bash
-   # macOS
-   brew install uv
-   
-   # Linux/WSL
-   curl -LsSf https://astral.sh/uv/install.sh | sh
-   
-   # Windows (via PowerShell)
-   irm https://astral.sh/uv/install.ps1 | iex
-   ```
+```bash
+# Clone the repository
+git clone https://github.com/LNAgents/lightning-mcp.git
+cd lightning-mcp
 
-2. **Clone the repository**:
-   ```bash
-   git clone https://github.com/LNAgents/lightning-mcp.git
-   cd lightning-mcp
-   ```
+# Create and activate a virtual environment
+python -m venv env
+source env/bin/activate  # On Windows: env\Scripts\activate
 
-3. **Create and activate a virtual environment**:
-   ```bash
-   uv venv
-   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-   ```
+# Install dependencies
+pip install -r requirements.txt
 
-4. **Install dependencies**:
-   ```bash
-   uv pip install -r requirements.txt
-   ```
+# Configure your Lightning node connection
+cp config.example.json config.json
+# Edit config.json with your node details
 
-5. **Configure your Lightning node connection**:
-   ```bash
-   # Create a configuration file from the example
-   cp config.example.json config.json
-   # Edit the configuration file with your node details
-   ```
+# Run the server
+python -m lightning_mcp.server.mcp_server
+```
 
-6. **Run the server**:
-   ```bash
-   python -m lightning_mcp.server.mcp_server
-   ```
+### Docker Deployment
+
+```bash
+# Build the Docker image
+docker build -t lightning-mcp .
+
+# Run the container
+docker run -p 8000:8000 -v $(pwd)/config.json:/app/config.json lightning-mcp
+```
 
 ### Development Setup
 
-For development work, install the package with development dependencies:
-
 ```bash
-uv pip install -e ".[dev]"
+# Install with development dependencies
+pip install -e ".[dev]"
+
+# Install pre-commit hooks
+pre-commit install
+
+# Run tests
+pytest
 ```
 
+## 🔌 Usage Examples
+
+### Creating a Lightning Invoice
+
+```python
+from lightning_mcp.lightning import LndClient
+
+# Initialize the client with your LND node configuration
+client = LndClient(
+    rpc_server="localhost:10009",
+    macaroon_path="~/.lnd/data/chain/bitcoin/mainnet/admin.macaroon",
+    tls_cert_path="~/.lnd/tls.cert"
+)
+
+# Create an invoice for 1000 satoshis
+invoice = client.create_invoice(amount=1000, memo="Test payment")
+print(f"Payment request: {invoice['payment_request']}")
+```
+
+### Paying a Lightning Invoice
+
+```python
+# Pay an invoice
+payment = client.pay_invoice(payment_request="lnbc...")
+print(f"Payment sent! Hash: {payment['payment_hash']}")
+```
+
+### MCP Server Integration
+
+```python
+from lightning_mcp.server import McpServer
+
+# Initialize and start the MCP server
+server = McpServer(config_path="config.json")
+server.start()
+```
+
+## 🗺️ Roadmap
+
+1. **Phase 1: MVP** *(Current)*
+   - ✅ Basic invoice creation and payment
+   - ✅ LND backend integration
+   - ✅ Initial MCP server implementation
+
+2. **Phase 2: Extended Node Support**
+   - 🚧 Core Lightning integration
+   - 📅 Eclair integration
+   - 📅 Advanced channel features (multi-path payments, splicing)
+
+3. **Phase 3: Security & Robustness**
+   - 📅 Rate-limiting and enhanced security
+   - 📅 Watchtower integration
+   - 📅 High-load testing and optimization
+
+4. **Phase 4: Advanced MCP Features**
+   - 📅 Richer schema definitions for AI agents
+   - 📅 Event callbacks/notifications (webhooks, SSE)
+   - 📅 Extended tool capabilities
+
+5. **Phase 5: Community Extensions**
+   - 📅 LNURL and Lightning Address integration
+   - 📅 Monitoring dashboards
+   - 📅 Plugin framework
+
+## 👥 Contributing
+
+Contributions are welcome and appreciated! Here's how you can help:
+
+1. **Fork the repository**
+2. **Create a feature branch**:
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+3. **Commit your changes**:
+   ```bash
+   git commit -m 'Add some amazing feature'
+   ```
+4. **Push to your branch**:
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+5. **Open a Pull Request**
+
+<!-- We'll add more detailed contribution guidelines in the future
+Please follow our [code of conduct](CODE_OF_CONDUCT.md) and [contribution guidelines](CONTRIBUTING.md).
+-->
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
 ---
 
-## Roadmap
-
-1. **Phase 1: MVP**  
-   - Implement invoice creation and payment features.  
-   - Provide a single reference backend (e.g., LND).  
-   - Add documentation for quick start and environment setup.  
-
-2. **Phase 2: Extended Node Support**  
-   - Integrate other Lightning back ends (Core Lightning, Eclair).  
-   - Support more advanced channel features (e.g., multi-path payments, splicing).  
-
-3. **Phase 3: Security & Robustness**  
-   - Add rate-limiting, watchtower integration, and improved key management.  
-   - Test for higher loads (up to hundreds or thousands of payments/second).  
-
-4. **Phase 4: Advanced MCP Features**  
-   - Richer schema definitions for AI agent discovery.  
-   - Automatic payment event callbacks/notifications to AI clients (webhooks, SSE).  
-
-5. **Phase 5: Community Extensions**  
-   - Integration with LNURL, Lightning Addresses, or other user-friendly protocols.  
-   - Larger ecosystem tools (monitoring dashboards, plugin frameworks).
-
----
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Set up the development environment:
-   ```bash
-   uv venv
-   source .venv/bin/activate
-   uv pip install -e ".[dev]"
-   ```
-
-2. Install pre-commit hooks:
-   ```bash
-   pre-commit install
-   ```
-
-3. Make your changes and run tests:
-   ```bash
-   pytest
-   ```
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+<p align="center">
+  Made with ⚡ by <a href="https://github.com/LNAgents">LNAgents</a>
+</p>
