@@ -6,8 +6,8 @@ setup(
     description="Bridge between Lightning Network and Model Context Protocol",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    author="LNAgents",
-    author_email="info@lnagents.org",
+    author="Nick Speer",
+    author_email="nick@speer.ai",
     url="https://github.com/LNAgents/lightning-mcp",
     packages=find_packages(),
     classifiers=[

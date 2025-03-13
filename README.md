@@ -7,13 +7,7 @@
 
 Lightning MCP is an open-source bridge between the Bitcoin Lightning Network and the Model Context Protocol (MCP). It enables AI agents and software systems to seamlessly send and receive Bitcoin payments through a standardized interface.
 
-<!-- Logo image will be added later
-<p align="center">
-  <img src="https://raw.githubusercontent.com/LNAgents/lightning-mcp/main/docs/assets/lightning-mcp-logo.png" alt="Lightning MCP Logo" width="300">
-</p>
--->
-
-> **Note:** This project is currently in alpha stage and provides a minimum viable product (MVP) for developers to build upon.
+> **Note:** This project is currently in alpha stage, providing a foundation for developers to build Lightning-enabled AI applications.
 
 ## 🚀 Features
 
@@ -29,8 +23,6 @@ Lightning MCP is an open-source bridge between the Bitcoin Lightning Network and
 - [Implementation Details](#-implementation-details)
 - [Installation](#-installation)
 - [Usage Examples](#-usage-examples)
-- [Roadmap](#-roadmap)
-- [Contributing](#-contributing)
 - [License](#-license)
 
 ## 🔍 Technical Overview
@@ -194,56 +186,6 @@ from lightning_mcp.server import McpServer
 server = McpServer(config_path="config.json")
 server.start()
 ```
-
-## 🗺️ Roadmap
-
-1. **Phase 1: MVP** *(Current)*
-   - ✅ Basic invoice creation and payment
-   - ✅ LND backend integration
-   - ✅ Initial MCP server implementation
-
-2. **Phase 2: Extended Node Support**
-   - 🚧 Core Lightning integration
-   - 📅 Eclair integration
-   - 📅 Advanced channel features (multi-path payments, splicing)
-
-3. **Phase 3: Security & Robustness**
-   - 📅 Rate-limiting and enhanced security
-   - 📅 Watchtower integration
-   - 📅 High-load testing and optimization
-
-4. **Phase 4: Advanced MCP Features**
-   - 📅 Richer schema definitions for AI agents
-   - 📅 Event callbacks/notifications (webhooks, SSE)
-   - 📅 Extended tool capabilities
-
-5. **Phase 5: Community Extensions**
-   - 📅 LNURL and Lightning Address integration
-   - 📅 Monitoring dashboards
-   - 📅 Plugin framework
-
-## 👥 Contributing
-
-Contributions are welcome and appreciated! Here's how you can help:
-
-1. **Fork the repository**
-2. **Create a feature branch**:
-   ```bash
-   git checkout -b feature/amazing-feature
-   ```
-3. **Commit your changes**:
-   ```bash
-   git commit -m 'Add some amazing feature'
-   ```
-4. **Push to your branch**:
-   ```bash
-   git push origin feature/amazing-feature
-   ```
-5. **Open a Pull Request**
-
-<!-- We'll add more detailed contribution guidelines in the future
-Please follow our [code of conduct](CODE_OF_CONDUCT.md) and [contribution guidelines](CONTRIBUTING.md).
--->
 
 ## 📄 License
 
