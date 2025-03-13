@@ -1,0 +1,52 @@
+{
+  "server": {
+    "host": "0.0.0.0",
+    "port": 8080,
+    "debug": false,
+    "log_level": "info",
+    "mcp_name": "Lightning MCP",
+    "mcp_version": "0.1.0"
+  },
+  "security": {
+    "tls_cert_path": "/path/to/tls.cert",
+    "tls_key_path": "/path/to/tls.key",
+    "token_auth_enabled": true,
+    "api_tokens": ["example-token-1", "example-token-2"]
+  },
+  "lightning": {
+    "implementation": "lnd",
+    "connection": {
+      "lnd": {
+        "rpc_server": "localhost:10009",
+        "tls_cert_path": "~/.lnd/tls.cert",
+        "macaroon_path": "~/.lnd/data/chain/bitcoin/mainnet/admin.macaroon",
+        "network": "mainnet"
+      },
+      "c-lightning": {
+        "socket_path": "~/.lightning/lightning-rpc",
+        "network": "mainnet"
+      },
+      "eclair": {
+        "url": "http://localhost:8080",
+        "api_key": "your-eclair-api-key",
+        "network": "mainnet"
+      },
+      "external": {
+        "service": "lnpay",
+        "api_key": "your-api-key",
+        "wallet_key": "your-wallet-key",
+        "base_url": "https://api.lnpay.co/v1"
+      }
+    }
+  },
+  "payment_limits": {
+    "min_payment_sat": 1,
+    "max_payment_sat": 1000000,
+    "daily_outbound_limit_sat": 5000000
+  },
+  "advanced": {
+    "connection_timeout_seconds": 30,
+    "payment_timeout_seconds": 60,
+    "max_routing_fee_percent": 3
+  }
+}

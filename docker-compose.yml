@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  lightning-mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./config:/app/config
+      - ${LND_DIR:-~/.lnd}:/root/.lnd:ro  # Read-only access to LND directory
+    environment:
+      - LIGHTNING_MCP_CONFIG=/app/config/config.json
+    restart: unless-stopped
+    networks:
+      - lightning-network
+
+networks:
+  lightning-network:
+    driver: bridge 
