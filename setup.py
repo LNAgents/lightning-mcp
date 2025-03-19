@@ -21,13 +21,13 @@ setup(
     python_requires=">=3.10",
     install_requires=[
         "fastmcp>=0.1.0",  # MCP server implementation
-        "grpcio>=1.54.0",  # gRPC for LND communication
-        "grpcio-tools>=1.54.0",  # Tools for generating gRPC stubs
+        "requests>=2.31.0",  # HTTP client for REST API
         "pydantic>=2.0.0",  # Data validation
         "fastapi>=0.100.0",  # REST API (optional)
         "uvicorn>=0.22.0",  # ASGI server (for FastAPI)
         "python-dotenv>=1.0.0",  # Environment variable management
         "cryptography>=41.0.0",  # For TLS/SSL handling
+        "sse-starlette>=1.8.0",  # Server-Sent Events support
     ],
     extras_require={
         "dev": [
